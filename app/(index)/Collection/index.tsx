@@ -23,7 +23,7 @@ const Collection = (props: Props) => {
         src={collection.photos[0].url}
         alt={collection.photos[0].alt}
         fill
-        sizes="25vw"
+        sizes="25vw, (max-width: 768px) 25vh"
       />
       {collection.title}
     </div>
