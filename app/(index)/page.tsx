@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Collection, { CollectionType } from "./Collection/index";
 import "./styles.css";
 
 enum City {
@@ -8,58 +8,14 @@ enum City {
   BELFAST = "Belfast",
 }
 
-type Collection = {
-  photos: {
-    url: string;
-    alt: string;
-  }[];
-  startDate: Date | null;
-  endDate: Date | null;
-};
 const Home = async () => {
   const collections = await fetchCollections();
   return (
     <div className="gallery">
-      <div>
-        <Image
-          priority
-          src={collections[City.LONDON].photos[0].url}
-          alt={collections[City.LONDON].photos[0].alt}
-          fill
-          sizes="25vw"
-        />
-        LND
-      </div>
-      <div>
-        <Image
-          priority
-          src={collections[City.ZABROWO].photos[0].url}
-          alt={collections[City.ZABROWO].photos[0].alt}
-          fill
-          sizes="25vw"
-        />
-        ZAB
-      </div>
-      <div>
-        <Image
-          priority
-          src={collections[City.GDYNIA].photos[0].url}
-          alt={collections[City.GDYNIA].photos[0].alt}
-          fill
-          sizes="25vw"
-        />
-        GDY
-      </div>
-      <div>
-        <Image
-          priority
-          src={collections[City.BELFAST].photos[0].url}
-          alt={collections[City.BELFAST].photos[0].alt}
-          fill
-          sizes="25vw"
-        />
-        BEL
-      </div>
+      <Collection collection={collections[City.LONDON]} />
+      <Collection collection={collections[City.ZABROWO]} />
+      <Collection collection={collections[City.GDYNIA]} />
+      <Collection collection={collections[City.BELFAST]} />
     </div>
   );
 };
@@ -79,7 +35,7 @@ type RawPhotoDetails = {
     city: string | null;
   };
 };
-const fetchCollections = async (): Promise<Record<City, Collection>> => {
+const fetchCollections = async (): Promise<Record<City, CollectionType>> => {
   const photosRes = await fetch(
     `https://api.unsplash.com/users/21w8y/photos/?` +
       new URLSearchParams({
@@ -90,11 +46,21 @@ const fetchCollections = async (): Promise<Record<City, Collection>> => {
   );
   const photos: RawPhoto[] = await photosRes.json();
 
-  const collections: Record<City, Collection> = {
-    [City.LONDON]: { photos: [], startDate: null, endDate: null },
-    [City.ZABROWO]: { photos: [], startDate: null, endDate: null },
-    [City.GDYNIA]: { photos: [], startDate: null, endDate: null },
-    [City.BELFAST]: { photos: [], startDate: null, endDate: null },
+  const collections: Record<City, CollectionType> = {
+    [City.LONDON]: { title: "LND", photos: [], startDate: null, endDate: null },
+    [City.ZABROWO]: {
+      title: "ZAB",
+      photos: [],
+      startDate: null,
+      endDate: null,
+    },
+    [City.GDYNIA]: { title: "GDY", photos: [], startDate: null, endDate: null },
+    [City.BELFAST]: {
+      title: "BEL",
+      photos: [],
+      startDate: null,
+      endDate: null,
+    },
   };
   for (const photo of photos) {
     const detailsRes = await fetch(
