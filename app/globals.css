@@ -1,0 +1,30 @@
+html {
+  height: 100%;
+}
+
+body {
+  display: grid;
+  grid-template-rows: 64px 1fr 64px;
+  height: 100%;
+  margin: 0;
+  background-color: black;
+  color: white;
+  font-family: "Dela Gothic One", sans-serif;
+}
+
+.navContent {
+  width: 95%;
+  margin: 0 auto;
+  line-height: 64px;
+}
+
+.navContent a {
+  color: white;
+  font-size: 24px;
+  text-decoration: none;
+}
+
+main {
+  width: 95%;
+  margin: 0 auto;
+}
