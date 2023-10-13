@@ -1,7 +1,7 @@
-import Collection, { CollectionType } from "./Collection/index";
-import "./styles.css";
+import { CollectionType } from "./Collection/index";
+import Gallery from "./Gallery";
 
-enum City {
+export enum City {
   LONDON = "London",
   ZABROWO = "Ząbrowo",
   GDYNIA = "Gdynia",
@@ -10,14 +10,7 @@ enum City {
 
 const Home = async () => {
   const collections = await fetchCollections();
-  return (
-    <div className="gallery">
-      <Collection collection={collections[City.LONDON]} />
-      <Collection collection={collections[City.ZABROWO]} />
-      <Collection collection={collections[City.GDYNIA]} />
-      <Collection collection={collections[City.BELFAST]} />
-    </div>
-  );
+  return <Gallery collections={collections} />;
 };
 
 type RawPhoto = {
