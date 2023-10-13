@@ -1,7 +1,8 @@
 "use client";
 
+import { City } from "@/app/constants";
+
 import Collection, { CollectionType } from "../Collection";
-import { City } from "../page";
 
 import "./styles.css";
 

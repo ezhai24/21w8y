@@ -1,12 +1,7 @@
+import { City } from "@/app/constants";
+
 import { CollectionType } from "./Collection/index";
 import Gallery from "./Gallery";
-
-export enum City {
-  LONDON = "London",
-  ZABROWO = "Ząbrowo",
-  GDYNIA = "Gdynia",
-  BELFAST = "Belfast",
-}
 
 const Home = async () => {
   const collections = await fetchCollections();
