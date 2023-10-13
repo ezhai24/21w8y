@@ -1,6 +1,7 @@
 "use client";
 
 import { City } from "@/app/constants";
+import Navigation from "@/app/navigation";
 
 import Collection, { CollectionType } from "../Collection";
 
@@ -13,12 +14,17 @@ const Gallery = (props: Props) => {
   const { collections } = props;
 
   return (
-    <div className="gallery">
-      <Collection collection={collections[City.LONDON]} />
-      <Collection collection={collections[City.ZABROWO]} />
-      <Collection collection={collections[City.GDYNIA]} />
-      <Collection collection={collections[City.BELFAST]} />
-    </div>
+    <>
+      <Navigation />
+      <main>
+        <div className="gallery">
+          <Collection collection={collections[City.LONDON]} />
+          <Collection collection={collections[City.ZABROWO]} />
+          <Collection collection={collections[City.GDYNIA]} />
+          <Collection collection={collections[City.BELFAST]} />
+        </div>
+      </main>
+    </>
   );
 };
 

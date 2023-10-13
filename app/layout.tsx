@@ -1,4 +1,3 @@
-import Link from "next/link";
 import "./globals.css";
 
 export default function RootLayout({
@@ -16,14 +15,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>
-        <nav>
-          <div className="navContent">
-            <Link href="/">21W8Y</Link>
-          </div>
-        </nav>
-        <main>{children}</main>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
