@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { DateTime } from "luxon";
 import Image from "next/image";
 
 import { City } from "@/app/constants";
@@ -43,6 +44,18 @@ interface Props {
 const Collection = (props: Props) => {
   const { collection, focusedCity, onFocusCity } = props;
 
+  const formattedStart = collection.startDate
+    ? DateTime.fromISO(collection.startDate.toISOString()).toFormat("dd.MM.yy")
+    : "X";
+  const formattedEnd = collection.endDate
+    ? DateTime.fromISO(collection.endDate.toISOString()).toFormat("dd.MM.yy")
+    : "X";
+  const collectionRange = `${formattedStart} - ${formattedEnd}`;
+
+  const imageCount = `${collection.photos.length} Image${
+    collection.photos.length > 1 ? "s" : ""
+  }`;
+
   const toggleFocus = () => {
     if (collection.city === focusedCity) {
       // open expanded collection view
@@ -71,6 +84,17 @@ const Collection = (props: Props) => {
         fill
         sizes="80vw, (max-width: 768px) 80vh"
       />
+      {collection.city === focusedCity ? (
+        <motion.div
+          className="details"
+          initial={{ y: -10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ type: "tween", delay: 0.3 }}
+        >
+          <div>{collectionRange}</div>
+          <div className="imageCount">{imageCount}</div>
+        </motion.div>
+      ) : null}
       <motion.div
         className="title"
         layout

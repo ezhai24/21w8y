@@ -2,6 +2,8 @@
   position: relative;
   flex: 1;
   display: grid;
+  grid-template-rows: 1fr 0;
+  padding: 0 5vw;
   background-size: cover;
   font-size: 32px;
 }
@@ -11,7 +13,24 @@
   object-fit: cover;
 }
 
+.details {
+  align-self: center;
+  display: flex;
+  width: 100%;
+  gap: 80px;
+
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
+}
+
+.imageCount {
+  margin-top: 10px;
+  white-space: nowrap;
+  font-family: sans-serif;
+  font-size: 16px;
+}
+
 .title {
-  margin-left: 5vw;
   margin-bottom: 20px;
 }
