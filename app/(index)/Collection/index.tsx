@@ -84,7 +84,7 @@ const Collection = (props: Props) => {
         src={collection.photos[0].url}
         alt={collection.photos[0].alt}
         fill
-        sizes="80vw, (max-width: 768px) 80vh"
+        sizes="30vw, (max-width: 768px) 30vh"
       />
       {collection.city === focusedCity ? (
         <motion.div
