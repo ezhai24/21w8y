@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import { City } from "@/app/constants";
 import Navigation from "@/app/navigation";
 
@@ -13,15 +15,25 @@ interface Props {
 const Gallery = (props: Props) => {
   const { collections } = props;
 
+  const cities = [City.LONDON, City.ZABROWO, City.GDYNIA, City.BELFAST];
+
+  const [focusedCity, setFocusedCity] = useState<City | null>(null);
+  const focusCity = (city: City) => setFocusedCity(city);
+  const blurCity = () => setFocusedCity(null);
+
   return (
     <>
-      <Navigation />
+      <Navigation onNavigate={blurCity} />
       <main>
         <div className="gallery">
-          <Collection collection={collections[City.LONDON]} />
-          <Collection collection={collections[City.ZABROWO]} />
-          <Collection collection={collections[City.GDYNIA]} />
-          <Collection collection={collections[City.BELFAST]} />
+          {cities.map((city) => (
+            <Collection
+              key={city}
+              collection={collections[city]}
+              focusedCity={focusedCity}
+              onFocusCity={focusCity}
+            />
+          ))}
         </div>
       </main>
     </>

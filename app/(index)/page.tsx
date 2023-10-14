@@ -35,16 +35,30 @@ const fetchCollections = async (): Promise<Record<City, CollectionType>> => {
   const photos: RawPhoto[] = await photosRes.json();
 
   const collections: Record<City, CollectionType> = {
-    [City.LONDON]: { title: "LND", photos: [], startDate: null, endDate: null },
-    [City.ZABROWO]: {
-      title: "ZAB",
+    [City.LONDON]: {
+      title: "LND",
+      city: City.LONDON,
       photos: [],
       startDate: null,
       endDate: null,
     },
-    [City.GDYNIA]: { title: "GDY", photos: [], startDate: null, endDate: null },
+    [City.ZABROWO]: {
+      title: "ZAB",
+      city: City.ZABROWO,
+      photos: [],
+      startDate: null,
+      endDate: null,
+    },
+    [City.GDYNIA]: {
+      title: "GDY",
+      city: City.GDYNIA,
+      photos: [],
+      startDate: null,
+      endDate: null,
+    },
     [City.BELFAST]: {
       title: "BEL",
+      city: City.BELFAST,
       photos: [],
       startDate: null,
       endDate: null,
