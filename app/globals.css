@@ -28,3 +28,15 @@ main {
   width: 95%;
   margin: 0 auto;
 }
+
+footer {
+  grid-row: 3;
+  padding-top: 14px;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 14px;
+  color: gray;
+}
+footer > a {
+  color: lightgray;
+}

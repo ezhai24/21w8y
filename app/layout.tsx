@@ -15,7 +15,13 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <footer className="footer">
+          Photos by <a href="https://unsplash.com/@21w8y">Mateusz Delegacz</a>{" "}
+          on <a href="https://unsplash.com/">Unsplash</a>
+        </footer>
+      </body>
     </html>
   );
 }
