@@ -18,7 +18,7 @@ const Gallery = (props: Props) => {
   const cities = [City.LONDON, City.ZABROWO, City.GDYNIA, City.BELFAST];
 
   const [focusedCity, setFocusedCity] = useState<City | null>(null);
-  const focusCity = (city: City) => setFocusedCity(city);
+  const focusCity = (city: City | null) => setFocusedCity(city);
   const blurCity = () => setFocusedCity(null);
 
   return (

@@ -39,7 +39,7 @@ const titleVariants = {
 interface Props {
   collection: CollectionType;
   focusedCity: City | null;
-  onFocusCity: (city: City) => void;
+  onFocusCity: (city: City | null) => void;
 }
 const Collection = (props: Props) => {
   const { collection, focusedCity, onFocusCity } = props;
@@ -58,7 +58,9 @@ const Collection = (props: Props) => {
 
   const toggleFocus = () => {
     if (collection.city === focusedCity) {
-      // open expanded collection view
+      // TO DO: Open expanded collection view instead
+      onFocusCity(null);
+      return;
     }
     onFocusCity(collection.city);
   };
