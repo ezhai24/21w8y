@@ -3,9 +3,13 @@
   flex: 1;
   display: grid;
   grid-template-rows: 1fr 0;
-  padding: 0 5vw;
+  grid-template-columns: 5vw 0;
   background-size: cover;
   font-size: 32px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 5vw 1fr 5vw;
+  }
 }
 
 .collection > img {
@@ -14,23 +18,27 @@
 }
 
 .details {
+  grid-column: 2;
   align-self: center;
   display: flex;
   width: 100%;
   gap: 80px;
+  white-space: nowrap;
 
   @media (max-width: 768px) {
+    white-space: normal;
     font-size: 24px;
   }
 }
 
 .imageCount {
-  margin-top: 10px;
+  margin-top: 12px;
   white-space: nowrap;
   font-family: sans-serif;
   font-size: 16px;
 }
 
 .title {
+  grid-column: 2;
   margin-bottom: 20px;
 }
