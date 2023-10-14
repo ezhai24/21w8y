@@ -1,4 +1,10 @@
+import { Dela_Gothic_One } from "next/font/google";
 import "./globals.css";
+
+const delaGothicOne = Dela_Gothic_One({
+  weight: "400",
+  subsets: ["latin"],
+});
 
 export default function RootLayout({
   children,
@@ -7,15 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body>
+      <body className={delaGothicOne.className}>
         {children}
         <footer className="footer">
           Photos by <a href="https://unsplash.com/@21w8y">Mateusz Delegacz</a>{" "}
