@@ -20,6 +20,7 @@ export type CollectionType = {
 };
 
 const collectionVariants = (index: number) => ({
+  initial: { y: 50, opacity: 0 },
   default: {
     y: 0,
     opacity: 1,
@@ -29,16 +30,13 @@ const collectionVariants = (index: number) => ({
       delay: index * 0.05,
     },
   },
-  focused: {
-    y: 0,
-    opacity: 1,
-    flexGrow: 12,
-  },
-  blurred: {
-    y: 0,
-    opacity: 0.2,
-  },
+  focused: { y: 0, opacity: 1, flexGrow: 12 },
+  blurred: { y: 0, opacity: 0.2 },
 });
+const detailsVariants = {
+  initial: { y: -10, opacity: 0 },
+  focused: { y: 0, opacity: 1 },
+};
 const titleVariants = {
   blurred: {
     opacity: 0,
@@ -83,6 +81,7 @@ const Collection = (props: Props) => {
       className="collection"
       onClick={toggleFocus}
       variants={collectionVariants(index)}
+      initial="initial"
       animate={
         !focusedCity
           ? "default"
@@ -90,7 +89,6 @@ const Collection = (props: Props) => {
           ? "focused"
           : "blurred"
       }
-      style={{ y: 50 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
     >
       <Image
@@ -103,8 +101,9 @@ const Collection = (props: Props) => {
       {collection.city === focusedCity ? (
         <motion.div
           className="details"
-          initial={{ y: -10, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
+          variants={detailsVariants}
+          initial="initial"
+          animate="focused"
           transition={{ type: "tween", delay: 0.3 }}
         >
           <div>{collectionRange}</div>
