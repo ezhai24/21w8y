@@ -4,6 +4,7 @@
   display: grid;
   grid-template-rows: 1fr 0;
   grid-template-columns: 5vw 0;
+  opacity: 0;
   background-size: cover;
   font-size: 32px;
 

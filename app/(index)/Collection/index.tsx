@@ -19,14 +19,26 @@ export type CollectionType = {
   endDate: Date | null;
 };
 
-const collectionVariants = {
+const collectionVariants = (index: number) => ({
+  default: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: "tween",
+      duration: 0.2,
+      delay: index * 0.05,
+    },
+  },
   focused: {
+    y: 0,
+    opacity: 1,
     flexGrow: 12,
   },
   blurred: {
+    y: 0,
     opacity: 0.2,
   },
-};
+});
 const titleVariants = {
   blurred: {
     opacity: 0,
@@ -37,12 +49,13 @@ const titleVariants = {
 };
 
 interface Props {
+  index: number;
   collection: CollectionType;
   focusedCity: City | null;
   onFocusCity: (city: City | null) => void;
 }
 const Collection = (props: Props) => {
-  const { collection, focusedCity, onFocusCity } = props;
+  const { index, collection, focusedCity, onFocusCity } = props;
 
   const formattedStart = collection.startDate
     ? DateTime.fromISO(collection.startDate.toISOString()).toFormat("dd.MM.yy")
@@ -69,7 +82,7 @@ const Collection = (props: Props) => {
     <motion.div
       className="collection"
       onClick={toggleFocus}
-      variants={collectionVariants}
+      variants={collectionVariants(index)}
       animate={
         !focusedCity
           ? "default"
@@ -77,6 +90,7 @@ const Collection = (props: Props) => {
           ? "focused"
           : "blurred"
       }
+      style={{ y: 50 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
     >
       <Image

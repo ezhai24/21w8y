@@ -26,9 +26,10 @@ const Gallery = (props: Props) => {
       <Navigation onNavigate={blurCity} />
       <main>
         <div className="gallery">
-          {cities.map((city) => (
+          {cities.map((city, index) => (
             <Collection
               key={city}
+              index={index}
               collection={collections[city]}
               focusedCity={focusedCity}
               onFocusCity={focusCity}
