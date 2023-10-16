@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { City } from "@/app/constants";
@@ -26,6 +26,14 @@ const Gallery = (props: Props) => {
   const blurCity = () => setFocusedCity(null);
   const toggleDetailView = (isOpen?: boolean) =>
     setIsDetailViewOpen((prev) => isOpen ?? !prev);
+
+  useEffect(() => {
+    cities.forEach((city) => {
+      collections[city].photos.forEach((photo) => {
+        new Image().src = photo.url;
+      });
+    });
+  });
 
   const onNavigate = () => {
     blurCity();

@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { DateTime } from "luxon";
-import Image from "next/image";
 
 import { City } from "@/app/constants";
 
@@ -113,14 +112,11 @@ const Collection = (props: Props) => {
       }
       exit={collection.city !== focusedCity ? "exit" : undefined}
       transition={{ duration: 0.5, ease: "easeInOut" }}
+      style={{
+        backgroundImage: `url(${collection.photos[0].url})`,
+      }}
+      aria-label={collection.photos[0].alt}
     >
-      <Image
-        priority
-        src={collection.photos[0].url}
-        alt={collection.photos[0].alt}
-        fill
-        sizes="30vw, (max-width: 768px) 30vh"
-      />
       {collection.city === focusedCity ? (
         <motion.div
           className="details"

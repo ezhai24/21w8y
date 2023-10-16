@@ -6,7 +6,6 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/solid";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 
 import { CollectionType } from "../Collection";
 
@@ -65,16 +64,12 @@ const CollectionDetails = (props: Props) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ type: "tween" }}
-            className="imageContainer"
-          >
-            <Image
-              src={collection.photos[currentPhoto].url}
-              alt={collection.photos[currentPhoto].alt}
-              priority
-              fill
-              sizes="40vw"
-            />
-          </motion.div>
+            className="image"
+            style={{
+              backgroundImage: `url(${collection.photos[currentPhoto].url})`,
+            }}
+            aria-label={collection.photos[currentPhoto].alt}
+          />
         </AnimatePresence>
 
         {collection.photos.length > 1 ? (
