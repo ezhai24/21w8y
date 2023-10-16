@@ -115,11 +115,11 @@ const Collection = (props: Props) => {
       transition={{ duration: 0.5, ease: "easeInOut" }}
     >
       <Image
-        priority
         src={collection.photos[0].url}
         alt={collection.photos[0].alt}
+        priority
         fill
-        sizes="30vw, (max-width: 768px) 30vh"
+        sizes="60vw, (max-width: 768px) 60vh"
       />
       {collection.city === focusedCity ? (
         <motion.div

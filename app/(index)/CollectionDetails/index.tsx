@@ -5,7 +5,7 @@ import {
   ChevronRightIcon,
   XMarkIcon,
 } from "@heroicons/react/24/solid";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 
 import { CollectionType } from "../Collection";
@@ -58,24 +58,31 @@ const CollectionDetails = (props: Props) => {
           </motion.button>
         ) : null}
 
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={collection.photos[currentPhoto].url}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ type: "tween" }}
-            className="imageContainer"
-          >
-            <Image
-              src={collection.photos[currentPhoto].url}
-              alt={collection.photos[currentPhoto].alt}
-              priority
-              fill
-              sizes="40vw"
-            />
-          </motion.div>
-        </AnimatePresence>
+        <div className="imageContainer">
+          {collection.photos.map((photo) => (
+            <motion.div
+              className="image"
+              initial={
+                photo.url === collection.photos[currentPhoto].url
+                  ? { opacity: 1 }
+                  : { opacity: 0 }
+              }
+              animate={
+                photo.url === collection.photos[currentPhoto].url
+                  ? { opacity: 1 }
+                  : { opacity: 0 }
+              }
+              key={photo.url}
+            >
+              <Image
+                src={photo.url}
+                alt={photo.alt}
+                fill
+                sizes="80vw, (max-width: 768px) 80vh"
+              />
+            </motion.div>
+          ))}
+        </div>
 
         {collection.photos.length > 1 ? (
           <motion.button

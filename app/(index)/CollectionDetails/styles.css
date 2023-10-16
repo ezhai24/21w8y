@@ -9,8 +9,12 @@
   width: 100%;
   height: 100%;
 }
-
-.imageContainer > img {
+.image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.image > img {
   object-fit: cover;
 }
 
