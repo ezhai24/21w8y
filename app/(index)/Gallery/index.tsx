@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 import { City } from "@/app/constants";
 import Navigation from "@/app/navigation";
 
 import Collection, { CollectionType } from "../Collection";
+import CollectionDetails from "../CollectionDetails";
 
 import "./styles.css";
 
@@ -18,24 +20,46 @@ const Gallery = (props: Props) => {
   const cities = [City.LONDON, City.ZABROWO, City.GDYNIA, City.BELFAST];
 
   const [focusedCity, setFocusedCity] = useState<City | null>(null);
+  const [isDetailViewOpen, setIsDetailViewOpen] = useState(false);
+
   const focusCity = (city: City | null) => setFocusedCity(city);
   const blurCity = () => setFocusedCity(null);
+  const toggleDetailView = (isOpen?: boolean) =>
+    setIsDetailViewOpen((prev) => isOpen ?? !prev);
+
+  const onNavigate = () => {
+    blurCity();
+    if (isDetailViewOpen) {
+      toggleDetailView(false);
+    }
+  };
 
   return (
     <>
-      <Navigation onNavigate={blurCity} />
+      <Navigation onNavigate={onNavigate} />
       <main>
-        <div className="gallery">
-          {cities.map((city, index) => (
-            <Collection
-              key={city}
-              index={index}
-              collection={collections[city]}
-              focusedCity={focusedCity}
-              onFocusCity={focusCity}
+        <AnimatePresence mode="wait">
+          {focusedCity && isDetailViewOpen ? (
+            <CollectionDetails
+              key="collectionDetails"
+              collection={collections[focusedCity]}
+              onClose={onNavigate}
             />
-          ))}
-        </div>
+          ) : (
+            <motion.div key="gallery" className="gallery" exit={{ gap: 0 }}>
+              {cities.map((city, index) => (
+                <Collection
+                  key={city}
+                  index={index}
+                  collection={collections[city]}
+                  focusedCity={focusedCity}
+                  onFocusCity={focusCity}
+                  toggleDetailView={toggleDetailView}
+                />
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
     </>
   );

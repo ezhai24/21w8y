@@ -19,8 +19,22 @@ export type CollectionType = {
   endDate: Date | null;
 };
 
-const collectionVariants = (index: number) => ({
-  initial: { y: 50, opacity: 0 },
+const collectionVariants = (
+  city: City,
+  focusedCity: City | null,
+  index: number
+) => ({
+  initial: !focusedCity
+    ? {
+        y: 50,
+        opacity: 0,
+        flexGrow: 1,
+      }
+    : {
+        y: 0,
+        opacity: 1,
+        flexGrow: city === focusedCity ? 12 : 1,
+      },
   default: {
     y: 0,
     opacity: 1,
@@ -32,28 +46,37 @@ const collectionVariants = (index: number) => ({
   },
   focused: { y: 0, opacity: 1, flexGrow: 12 },
   blurred: { y: 0, opacity: 0.2 },
+  exit:
+    typeof screen !== "undefined" && screen.width < 768
+      ? { flexGrow: 0, height: 0 }
+      : { flexGrow: 0, width: 0 },
 });
 const detailsVariants = {
   initial: { y: -10, opacity: 0 },
   focused: { y: 0, opacity: 1 },
+  exit: { opacity: 0 },
 };
-const titleVariants = {
+const titleVariants = (focusedCity: City | null) => ({
+  initial: !focusedCity ? { opacity: 1 } : { opacity: 0 },
+  focused: { opacity: 1 },
   blurred: {
     opacity: 0,
     transition: {
       duration: 0.15,
     },
   },
-};
+});
 
 interface Props {
   index: number;
   collection: CollectionType;
   focusedCity: City | null;
   onFocusCity: (city: City | null) => void;
+  toggleDetailView: (isOpen?: boolean) => void;
 }
 const Collection = (props: Props) => {
-  const { index, collection, focusedCity, onFocusCity } = props;
+  const { index, collection, focusedCity, onFocusCity, toggleDetailView } =
+    props;
 
   const formattedStart = collection.startDate
     ? DateTime.fromISO(collection.startDate.toISOString()).toFormat("dd.MM.yy")
@@ -69,8 +92,7 @@ const Collection = (props: Props) => {
 
   const toggleFocus = () => {
     if (collection.city === focusedCity) {
-      // TO DO: Open expanded collection view instead
-      onFocusCity(null);
+      toggleDetailView(true);
       return;
     }
     onFocusCity(collection.city);
@@ -80,7 +102,7 @@ const Collection = (props: Props) => {
     <motion.div
       className="collection"
       onClick={toggleFocus}
-      variants={collectionVariants(index)}
+      variants={collectionVariants(collection.city, focusedCity, index)}
       initial="initial"
       animate={
         !focusedCity
@@ -89,6 +111,7 @@ const Collection = (props: Props) => {
           ? "focused"
           : "blurred"
       }
+      exit={collection.city !== focusedCity ? "exit" : undefined}
       transition={{ duration: 0.5, ease: "easeInOut" }}
     >
       <Image
@@ -104,6 +127,7 @@ const Collection = (props: Props) => {
           variants={detailsVariants}
           initial="initial"
           animate="focused"
+          exit="exit"
           transition={{ type: "tween", delay: 0.3 }}
         >
           <div>{collectionRange}</div>
@@ -113,10 +137,15 @@ const Collection = (props: Props) => {
       <motion.div
         className="title"
         layout
-        variants={titleVariants}
+        variants={titleVariants(focusedCity)}
+        // TO DO [Time Boxed]: This one style doesn't
+        // work with variants. exit="exit" overrides
+        // the blurred opacity to 1 for some reason.
+        exit={{ opacity: 0 }}
         style={{
           alignSelf: focusedCity ? "end" : "center",
         }}
+        transition={{ type: "tween" }}
       >
         {collection.title}
       </motion.div>
