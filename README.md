@@ -3,13 +3,6 @@
 ### Emily Zhai | [LinkedIn](https://www.linkedin.com/in/emily-zhai-b7b32a103/)
 An *unofficial* portfolio for the Unsplash photographer Mateusz Delegacz, perhaps better known as 21w8y. This project is a stab at implementing Mateusz's own [Dribbble shot](https://dribbble.com/shots/6868117-21W8Y-Interaction). However, it is much more an exercise in translating designs into code and orchestrating practical front-end animations for my own benefit than anything else.
 
-**⚡️Highlights⚡️**
-- Wicked fast ([Google performance metrics](https://pagespeed.web.dev/analysis/https-21w8y-vercel-app/clndk4lkvl?form_factor=mobile))
-  - Fetches Unsplash data server-side to save on blocking client requests
-  - Leverages Next.js for image optimazation and font optimization
-- Smooth animations on component transitions
-- Fully responsive and implemented with mobile in mind
-
 **⚙️ Built with...**
 - [Unsplash API](https://unsplash.com/developers)
 - [Next.js](https://nextjs.org/)
