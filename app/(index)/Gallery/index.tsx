@@ -38,7 +38,7 @@ const Gallery = (props: Props) => {
     <>
       <Navigation onNavigate={onNavigate} />
       <main>
-        <AnimatePresence mode="wait">
+        <AnimatePresence>
           {focusedCity && isDetailViewOpen ? (
             <CollectionDetails
               key="collectionDetails"

@@ -41,12 +41,13 @@ const CollectionDetails = (props: Props) => {
     <>
       <motion.div
         className="slider"
-        exit={
-          screen.width < 768
-            ? { y: "40vh", height: 0 }
-            : { x: "47vw", width: 0 }
-        }
-        transition={{ duration: 0.8 }}
+        initial={{ zIndex: -1, opacity: 0 }}
+        animate={{
+          zIndex: 0,
+          opacity: 1,
+          transition: { delay: 0.6, duration: 0 },
+        }}
+        exit={{ height: 0, opacity: 0 }}
       >
         {collection.photos.length > 1 ? (
           <motion.button
