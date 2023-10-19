@@ -2,6 +2,7 @@ import { City } from "@/app/constants";
 
 import { CollectionType } from "./Collection/index";
 import Gallery from "./Gallery";
+import { getPlaiceholder } from "plaiceholder";
 
 const Home = async () => {
   const collections = await fetchCollections();
@@ -18,6 +19,7 @@ type RawPhotoDetails = {
   alt_description: string | null;
   urls: {
     full: string;
+    thumb: string;
   };
   location: {
     city: string | null;
@@ -75,12 +77,17 @@ const fetchCollections = async (): Promise<Record<City, CollectionType>> => {
 
     const location = photoDetails.location.city as City;
     if (location && Object.values(City).includes(location)) {
+      const photoRes = await fetch(photoDetails.urls.thumb);
+      const photoBuffer = await photoRes.arrayBuffer();
+      const { base64 } = await getPlaiceholder(Buffer.from(photoBuffer));
+
       collections[location].photos.push({
         url: photoDetails.urls.full,
         alt:
           photoDetails.alt_description ??
           photoDetails.description ??
           `Unsplash photo of ${location}`,
+        blurDataURL: base64,
       });
 
       const createdAt = new Date(photoDetails.created_at);

@@ -79,6 +79,8 @@ const CollectionDetails = (props: Props) => {
                 alt={photo.alt}
                 fill
                 sizes="80vw, (max-width: 768px) 80vh"
+                placeholder="blur"
+                blurDataURL={photo.blurDataURL}
               />
             </motion.div>
           ))}

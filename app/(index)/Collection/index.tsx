@@ -14,6 +14,7 @@ export type CollectionType = {
   photos: {
     url: string;
     alt: string;
+    blurDataURL: string;
   }[];
   startDate: Date | null;
   endDate: Date | null;
@@ -120,6 +121,8 @@ const Collection = (props: Props) => {
         priority
         fill
         sizes="60vw, (max-width: 768px) 60vh"
+        placeholder="blur"
+        blurDataURL={collection.photos[0].blurDataURL}
       />
       {collection.city === focusedCity ? (
         <motion.div
